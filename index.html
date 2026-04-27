@@ -3,33 +3,266 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>§ 523(a)(8) AP Eligibility Screener — Open Bankruptcy Project</title>
-<meta name="description" content="Educational self-screening tool for evaluating whether a § 523(a)(8) adversary proceeding may be a candidate path in a borrower's circumstances. Not legal ">
+<title>§ 523(a)(8) AP Eligibility Self-Screener — Open Bankruptcy Project</title>
+<meta name="description" content="Educational self-assessment for evaluating whether a § 523(a)(8) student loan discharge adversary proceeding may apply to your circumstances. Brunner-test factors, plain language. Not legal advice.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://screener.openbankruptcyproject.org/">
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
 max-width:760px;margin:0 auto;padding:2rem 1rem;line-height:1.6;color:#1a1a1a;background:#fafafa}
-h1{font-size:1.9rem;line-height:1.2;margin:0 0 1rem}
-.lead{font-size:1.1rem;color:#444;margin:0 0 2rem}
+h1{font-size:1.9rem;line-height:1.2;margin:0 0 0.5rem}
+h2{font-size:1.3rem;margin:2rem 0 0.7rem;color:#0c5cb6}
+.tag{display:inline-block;padding:0.15rem 0.6rem;background:#0c5cb6;color:#fff;
+font-size:0.75rem;border-radius:3px;margin-bottom:1rem}
+.lead{font-size:1.05rem;color:#444;margin:0 0 1.5rem}
+.disclaimer{padding:1rem 1.2rem;background:#fff8e0;border-left:4px solid #d4a900;
+margin:1.5rem 0;border-radius:0 4px 4px 0;font-size:0.95rem}
+.disclaimer strong{color:#7a5d00}
+fieldset{border:1px solid #ddd;border-radius:6px;padding:1.2rem;margin:1.2rem 0;background:#fff}
+legend{padding:0 0.5rem;font-weight:600;color:#0c5cb6}
+.q{margin-bottom:1rem}
+.q label.main{display:block;font-weight:600;margin-bottom:0.3rem}
+.q .help{font-size:0.9rem;color:#666;margin-bottom:0.5rem}
+.q label.opt{display:block;padding:0.3rem 0;cursor:pointer}
+.q input[type=radio]{margin-right:0.5rem}
+button{background:#0c5cb6;color:#fff;border:none;padding:0.7rem 1.5rem;font-size:1rem;
+border-radius:4px;cursor:pointer;margin-top:1rem}
+button:hover{background:#0a4d99}
+button[disabled]{background:#aaa;cursor:not-allowed}
+.results{margin-top:2rem;padding:1.5rem;background:#fff;border:2px solid #0c5cb6;border-radius:6px;display:none}
+.results.show{display:block}
+.results h2{margin-top:0}
+.factor-result{padding:0.8rem 1rem;margin:0.7rem 0;border-radius:4px;border-left:4px solid #ccc;background:#f8f8f8}
+.factor-result.likely{border-color:#2d8a4d;background:#eaf6ee}
+.factor-result.unclear{border-color:#d4a900;background:#fff8e0}
+.factor-result.unlikely{border-color:#a32}
+.factor-result h3{margin:0 0 0.3rem;font-size:1rem}
+.factor-result .label{font-weight:600;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.5px;display:inline-block;margin-right:0.5rem}
+.next-steps{padding:1rem 1.2rem;background:#f0f4f8;border-left:4px solid #6b8eaf;
+margin:1.5rem 0;border-radius:0 4px 4px 0;font-size:0.95rem}
 footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #ddd;color:#666;font-size:0.9rem}
 a{color:#0c5cb6}
-.tag{display:inline-block;padding:0.15rem 0.6rem;background:#0c5cb6;color:#fff;font-size:0.75rem;border-radius:3px;margin-bottom:1rem}
+.privacy{font-size:0.85rem;color:#666;margin:1rem 0;font-style:italic;text-align:center}
 </style>
 </head>
 <body>
-<span class="tag">Open Bankruptcy Project</span>
-<h1>§ 523(a)(8) AP Eligibility Screener</h1>
-<p class="lead">Educational self-screening tool for evaluating whether a § 523(a)(8) adversary proceeding may be a candidate path in a borrower's circumstances. Not legal advice. Walks through Brunner-test factors and outputs a non-binding educational summary.</p>
-<p><strong>Status:</strong> Page under construction. Empirical research and educational content
-in preparation. Check back shortly.</p>
+
+<span class="tag">Open Bankruptcy Project · Self-Screener</span>
+
+<h1>§ 523(a)(8) AP Eligibility Self-Screener</h1>
+
+<p class="lead">A short self-assessment that maps your situation to the Brunner-test factors used by
+most courts to evaluate undue hardship in student-loan discharge adversary proceedings.</p>
+
+<div class="disclaimer">
+<strong>This is educational, not legal advice.</strong> Outcomes in real § 523(a)(8) cases are
+fact-specific and decided by judges. This tool cannot tell you whether you will win an AP. It
+can only help you think through how the Brunner factors map to your situation. For advice on
+your specific case, consult a licensed bankruptcy attorney.
+</div>
+
+<p class="privacy">Privacy: this form runs entirely in your browser. No data is sent anywhere or
+saved. Refresh the page to clear your responses.</p>
+
+<form id="screen">
+
+<fieldset>
+<legend>1. Loan type</legend>
+<div class="q">
+<label class="main">What kind of student loans are you asking about?</label>
+<p class="help">Federal loans and private loans go through different paths.</p>
+<label class="opt"><input type="radio" name="loan_type" value="federal"> Federal student loans only (Direct, FFEL, Perkins)</label>
+<label class="opt"><input type="radio" name="loan_type" value="private"> Private student loans only</label>
+<label class="opt"><input type="radio" name="loan_type" value="both"> A mix of federal and private</label>
+<label class="opt"><input type="radio" name="loan_type" value="unsure"> Not sure</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>2. Brunner factor 1 — Minimal standard of living</legend>
+<div class="q">
+<label class="main">If you had to make full payments on these loans right now, could you maintain a "minimal" standard of living for yourself and any dependents?</label>
+<p class="help">"Minimal" means basic subsistence: housing, food, transportation, medical care &mdash; not aspirational expenses.</p>
+<label class="opt"><input type="radio" name="msl" value="no"> No &mdash; full payments would prevent basic subsistence</label>
+<label class="opt"><input type="radio" name="msl" value="tight"> Yes, but only barely &mdash; very tight, no margin for the unexpected</label>
+<label class="opt"><input type="radio" name="msl" value="yes"> Yes, with normal effort I could afford the payments</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>3. Brunner factor 2 — Persistence</legend>
+<div class="q">
+<label class="main">Are the circumstances making repayment unaffordable likely to last for a significant portion of the repayment term (typically a decade or more)?</label>
+<p class="help">Examples that often persist: documented disability, advanced age with limited earning years remaining, ongoing care obligations, severely limited earning capacity in the field of training.</p>
+<label class="opt"><input type="radio" name="persist" value="yes"> Yes &mdash; long-term factors are involved</label>
+<label class="opt"><input type="radio" name="persist" value="maybe"> Possibly &mdash; some long-term factors but also some short-term setbacks</label>
+<label class="opt"><input type="radio" name="persist" value="no"> No &mdash; current hardship is mostly temporary</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>4. Brunner factor 3 — Good-faith repayment efforts</legend>
+<div class="q">
+<label class="main">Have you made meaningful efforts to repay the loans before considering bankruptcy?</label>
+<p class="help">Examples: making payments when possible, applying for income-driven repayment, requesting deferment or forbearance, attempts to maximize income.</p>
+<label class="opt"><input type="radio" name="good_faith" value="yes"> Yes &mdash; I have a documented record of repayment efforts</label>
+<label class="opt"><input type="radio" name="good_faith" value="some"> Some &mdash; partial efforts, but gaps</label>
+<label class="opt"><input type="radio" name="good_faith" value="no"> No &mdash; I have not actively pursued repayment options</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>5. Context — Federal alternative paths (only if federal loans involved)</legend>
+<div class="q">
+<label class="main">Have you been determined to be totally and permanently disabled by the VA or SSA, or could a physician certify TPD?</label>
+<label class="opt"><input type="radio" name="tpd" value="yes"> Yes</label>
+<label class="opt"><input type="radio" name="tpd" value="maybe"> Possibly</label>
+<label class="opt"><input type="radio" name="tpd" value="no"> No</label>
+</div>
+<div class="q">
+<label class="main">Did your school close while you were enrolled, or shortly after you withdrew without completing the program?</label>
+<label class="opt"><input type="radio" name="closed_school" value="yes"> Yes</label>
+<label class="opt"><input type="radio" name="closed_school" value="no"> No</label>
+</div>
+<div class="q">
+<label class="main">Did your school falsely certify your eligibility for federal aid (ability-to-benefit fraud, disqualifying status, identity-theft enrollment)?</label>
+<label class="opt"><input type="radio" name="false_cert" value="yes"> Yes</label>
+<label class="opt"><input type="radio" name="false_cert" value="maybe"> Possibly &mdash; I should look into this</label>
+<label class="opt"><input type="radio" name="false_cert" value="no"> No</label>
+</div>
+</fieldset>
+
+<button type="submit" id="submit-btn">Show my factor-by-factor summary</button>
+</form>
+
+<div class="results" id="results">
+<h2>Educational summary</h2>
+<p>Based on your responses, here's how your situation maps to the Brunner-test factors and other
+discharge paths. <strong>This is not a prediction of any case outcome.</strong></p>
+<div id="result-body"></div>
+
+<div class="next-steps">
+<strong>Suggested next steps:</strong>
+<ul>
+<li>If a federal alternative path applies, those are usually simpler than a § 523(a)(8) AP and worth considering first.</li>
+<li>For a § 523(a)(8) AP itself: a licensed bankruptcy attorney is the standard path. Many state bar associations offer lawyer referral services. Some law school clinics handle student-loan discharge cases at no cost.</li>
+<li>Federal-loan borrowers can also contact the Department of Education's ombudsman for non-bankruptcy disputes.</li>
+</ul>
+</div>
+
+<p style="margin-top:1.5rem"><a href="#" onclick="document.getElementById('screen').reset();document.getElementById('results').classList.remove('show');window.scrollTo(0,0);return false">Start over</a></p>
+</div>
+
+<h2>Why this screener exists</h2>
+<p>Most § 523(a)(8) self-screening tools online are sales funnels for law-firm intake. This one
+is not. It's published by a 501(c)(3) nonprofit, runs entirely in your browser, saves no data,
+and outputs a factor-by-factor educational map &mdash; never a prediction of outcome and never
+a recommendation to file or not file.</p>
+
+<p>For empirical context on § 523(a)(8) AP outcomes nationally, see the
+<a href="https://523a8.openbankruptcyproject.org/">Open Bankruptcy Project's research dataset</a>.
+For deeper reference on the undue-hardship standard, see
+<a href="https://undue-hardship.openbankruptcyproject.org/">undue-hardship.openbankruptcyproject.org</a>.
+For the consumer-side overview, see
+<a href="https://studentloans.openbankruptcyproject.org/">studentloans.openbankruptcyproject.org</a>.</p>
+
 <footer>
-<p>This page provides general information for educational purposes only. It does not constitute
-legal advice and does not create an attorney-client relationship. For advice on your specific situation,
-consult a licensed bankruptcy attorney in your jurisdiction.</p>
+<p>Last updated April 27, 2026. The information on this page and the screener are general legal
+information for educational purposes. They are not legal advice and do not create an
+attorney-client relationship. For advice on a specific situation, consult a licensed bankruptcy
+attorney in the relevant jurisdiction.</p>
 <p><strong>Open Bankruptcy Project</strong> &mdash; a 501(c)(3) public charity (EIN 41-5159631) &mdash;
 empirical research and free tools for federal bankruptcy law.
 <a href="https://openbankruptcyproject.org/">openbankruptcyproject.org</a></p>
 </footer>
+
+<script>
+document.getElementById('screen').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var fd = new FormData(e.target);
+  var ans = {};
+  for (var [k,v] of fd.entries()) ans[k] = v;
+
+  var blocks = [];
+
+  // Loan type framing
+  if (ans.loan_type === 'federal') {
+    blocks.push({cls:'likely', label:'Loan type', title:'Federal loans only',
+      body:'Federal loans are the primary domain of the Nov 2022 DOJ guidance, which has materially eased § 523(a)(8) AP discharge for federal loans. They are also eligible for several non-bankruptcy discharge paths (TPD, Closed School, False Certification, Borrower Defense).'});
+  } else if (ans.loan_type === 'private') {
+    blocks.push({cls:'unclear', label:'Loan type', title:'Private loans only',
+      body:'Private loans go through § 523(a)(8) APs against the lender directly. The Nov 2022 DOJ guidance does not apply. Some private "education loans" may not even meet § 523(a)(8)\'s definition and could be dischargeable without an AP — that\'s a fact-specific legal question worth raising with a bankruptcy attorney.'});
+  } else if (ans.loan_type === 'both') {
+    blocks.push({cls:'unclear', label:'Loan type', title:'Mixed federal and private',
+      body:'Federal and private loans require separate analyses. APs against each defendant proceed on their own track. The federal portion benefits from post-Nov-2022 DOJ guidance; the private portion does not.'});
+  } else {
+    blocks.push({cls:'unclear', label:'Loan type', title:'Loan type unclear',
+      body:'Step one: identify your loans. Federal loans are listed on studentaid.gov; private loans appear on credit reports but not on studentaid.gov. The discharge path depends on which type you have.'});
+  }
+
+  // Brunner factor 1
+  if (ans.msl === 'no') {
+    blocks.push({cls:'likely', label:'Brunner factor 1', title:'Minimal standard of living — likely',
+      body:'You indicated full payments would prevent basic subsistence. That maps directly to the first Brunner prong as courts apply it. Documentation of income and expenses (at the granular level courts examine) is essential.'});
+  } else if (ans.msl === 'tight') {
+    blocks.push({cls:'unclear', label:'Brunner factor 1', title:'Minimal standard of living — unclear',
+      body:'Tight margins are usually not enough on their own. Courts apply Brunner\'s first prong fairly strictly: the question is whether basic subsistence is genuinely unaffordable, not whether the budget is uncomfortable.'});
+  } else {
+    blocks.push({cls:'unlikely', label:'Brunner factor 1', title:'Minimal standard of living — likely not met',
+      body:'You indicated payments would be affordable with normal effort. The first Brunner prong is unlikely to be met under those circumstances.'});
+  }
+
+  // Brunner factor 2
+  if (ans.persist === 'yes') {
+    blocks.push({cls:'likely', label:'Brunner factor 2', title:'Persistence — likely',
+      body:'Long-term factors map to the second prong. Documentation of the persistence (medical records for disability, age-and-earning-history for limited earning years, etc.) is the substance of this prong.'});
+  } else if (ans.persist === 'maybe') {
+    blocks.push({cls:'unclear', label:'Brunner factor 2', title:'Persistence — unclear',
+      body:'A mix of long-term and short-term factors makes this prong fact-specific. Courts evaluate the dominant pattern.'});
+  } else {
+    blocks.push({cls:'unlikely', label:'Brunner factor 2', title:'Persistence — likely not met',
+      body:'Temporary setbacks are generally not enough for the second prong. This is the prong that most often blocks Brunner-jurisdiction discharges where short-term hardship resolves before the loan term ends.'});
+  }
+
+  // Brunner factor 3
+  if (ans.good_faith === 'yes') {
+    blocks.push({cls:'likely', label:'Brunner factor 3', title:'Good-faith efforts — likely',
+      body:'A documented repayment-attempt record (income-driven repayment, deferment, payments where possible) maps to the third prong. Save records — payment history, denied applications, and correspondence with servicers.'});
+  } else if (ans.good_faith === 'some') {
+    blocks.push({cls:'unclear', label:'Brunner factor 3', title:'Good-faith efforts — unclear',
+      body:'Partial efforts can satisfy the third prong if reasons for gaps are documented (lost contact during financial crisis, medical incapacity, etc.). Courts vary on how strictly they apply this prong.'});
+  } else {
+    blocks.push({cls:'unlikely', label:'Brunner factor 3', title:'Good-faith efforts — likely not met',
+      body:'Without a record of attempts to repay or use of available repayment alternatives, the third prong is hard to satisfy. Even where the first two prongs are clearly met, this one frequently determines outcomes.'});
+  }
+
+  // Federal alternative paths
+  if (ans.loan_type === 'federal' || ans.loan_type === 'both') {
+    if (ans.tpd === 'yes' || ans.tpd === 'maybe') {
+      blocks.push({cls:'likely', label:'Alternative path', title:'TPD discharge worth investigating',
+        body:'A TPD application is administrative — no bankruptcy required. If you qualify, this is generally faster and simpler than a § 523(a)(8) AP. See <a href="https://tpd-discharge.openbankruptcyproject.org/">tpd-discharge.openbankruptcyproject.org</a>.'});
+    }
+    if (ans.closed_school === 'yes') {
+      blocks.push({cls:'likely', label:'Alternative path', title:'Closed School Discharge worth investigating',
+        body:'A Closed School Discharge eliminates the federal loan obligation administratively. See <a href="https://closed-school.openbankruptcyproject.org/">closed-school.openbankruptcyproject.org</a>.'});
+    }
+    if (ans.false_cert === 'yes' || ans.false_cert === 'maybe') {
+      blocks.push({cls:'likely', label:'Alternative path', title:'False Certification Discharge worth investigating',
+        body:'A False Certification Discharge eliminates the federal loan obligation administratively in eligible cases. See <a href="https://false-certification.openbankruptcyproject.org/">false-certification.openbankruptcyproject.org</a>.'});
+    }
+  }
+
+  var html = '';
+  blocks.forEach(function(b) {
+    html += '<div class="factor-result ' + b.cls + '">' +
+            '<h3><span class="label">' + b.label + '</span>' + b.title + '</h3>' +
+            '<p>' + b.body + '</p></div>';
+  });
+  document.getElementById('result-body').innerHTML = html;
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior: 'smooth'});
+});
+</script>
+
 </body>
 </html>
