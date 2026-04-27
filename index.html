@@ -43,6 +43,14 @@ margin:1.5rem 0;border-radius:0 4px 4px 0;font-size:0.95rem}
 footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #ddd;color:#666;font-size:0.9rem}
 a{color:#0c5cb6}
 .privacy{font-size:0.85rem;color:#666;margin:1rem 0;font-style:italic;text-align:center}
+@media print {
+  body{background:#fff !important;color:#000 !important;font-size:11pt}
+  .tag,button,.privacy{display:none !important}
+  .results{border:1px solid #000 !important;page-break-inside:avoid}
+  fieldset{page-break-inside:avoid}
+  a{color:#000;text-decoration:underline}
+  .factor-result{break-inside:avoid;border:1px solid #888 !important;background:#f9f9f9 !important}
+}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTWLM223G7"></script>
 <script>
@@ -166,6 +174,8 @@ discharge paths. <strong>This is not a prediction of any case outcome.</strong><
 </ul>
 </div>
 
+<button type="button" id="copy-btn" style="margin-top:1rem;background:#2d8a4d">Copy summary as text</button>
+<button type="button" id="print-btn" style="margin-top:1rem;background:#0c5cb6">Print summary</button>
 <p style="margin-top:1.5rem"><a href="#" onclick="document.getElementById('screen').reset();document.getElementById('results').classList.remove('show');window.scrollTo(0,0);return false">Start over</a></p>
 </div>
 
@@ -278,6 +288,71 @@ document.getElementById('screen').addEventListener('submit', function(e) {
   document.getElementById('results').classList.add('show');
   document.getElementById('results').scrollIntoView({behavior: 'smooth'});
 });
+
+// localStorage persistence
+const SCREENER_KEY = 'obp_screener_v1';
+function saveResponses() {
+  const fd = new FormData(document.getElementById('screen'));
+  const obj = {};
+  for (const [k,v] of fd.entries()) obj[k] = v;
+  try { localStorage.setItem(SCREENER_KEY, JSON.stringify(obj)); } catch(e){}
+}
+function restoreResponses() {
+  try {
+    const raw = localStorage.getItem(SCREENER_KEY);
+    if (!raw) return;
+    const obj = JSON.parse(raw);
+    Object.entries(obj).forEach(([k,v]) => {
+      const el = document.querySelector('input[name="'+k+'"][value="'+v+'"]');
+      if (el) el.checked = true;
+    });
+  } catch(e){}
+}
+function clearResponses() {
+  try { localStorage.removeItem(SCREENER_KEY); } catch(e){}
+}
+document.querySelectorAll('input[type=radio]').forEach(el => el.addEventListener('change', saveResponses));
+restoreResponses();
+
+// Copy summary as text
+document.getElementById('copy-btn')?.addEventListener('click', () => {
+  const body = document.getElementById('result-body');
+  if (!body) return;
+  let text = '§ 523(a)(8) AP Eligibility Self-Screener -- Educational Summary
+';
+  text += '(Open Bankruptcy Project, openbankruptcyproject.org)
+';
+  text += 'Generated: ' + new Date().toISOString().slice(0,16).replace('T',' ') + ' UTC
+
+';
+  body.querySelectorAll('.factor-result').forEach(fr => {
+    const label = fr.querySelector('.label')?.textContent || '';
+    const title = fr.querySelector('h3')?.textContent.replace(label,'').trim() || '';
+    const para = fr.querySelector('p')?.textContent || '';
+    text += '[' + label + '] ' + title + '
+  ' + para + '
+
+';
+  });
+  text += '---
+This is educational, not legal advice. Consult a licensed bankruptcy attorney.';
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+});
+
+// Print
+document.getElementById('print-btn')?.addEventListener('click', () => window.print());
+
+// Clear localStorage on Start over
+document.querySelectorAll('a[onclick*="reset"]').forEach(a => {
+  const orig = a.getAttribute('onclick');
+  a.setAttribute('onclick', 'clearResponses();' + orig);
+});
+
 </script>
 
 </body>
